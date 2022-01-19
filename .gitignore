@@ -5,3 +5,5 @@ dist/*
 _td*/
 *.env
 *.log
+.cache/
+.cache/*
