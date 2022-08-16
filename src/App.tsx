@@ -1,29 +1,41 @@
-import { Layout } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Content, Header } from 'antd/lib/layout/layout';
 import Text from 'antd/lib/typography/Text';
 import * as React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import './App.scss';
 import Home from './pages/Home';
-import Pokemon from './pages/Pokemon';
+import Pkmn from './pages/Pkmn';
+import Types from './pages/Types';
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <Layout>
+    <Layout style={{ height: '100%' }}>
       <Header>
         <div className="logo">
-          <img alt="PokéSearch" src={logo} />
+          <Link to="/">
+            <img alt="PokéSearch" src={logo} />
+          </Link>
           <Text className="site-name">PokéSearch</Text>
         </div>
+        <Menu
+          className="menu"
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['home']}
+          items={[
+            { label: 'Home', key: 'home' },
+            { label: 'Types', key: 'types' }
+          ]}
+        />
       </Header>
       <Content>
-        <main className="App">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="pokemon/:pokemon" element={<Pokemon />} />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="pokemon/:pokemon" element={<Pkmn />} />
+          <Route path="types" element={<Types />} />
+        </Routes>
       </Content>
     </Layout>
   );

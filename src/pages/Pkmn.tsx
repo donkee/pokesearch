@@ -6,22 +6,28 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Pokedex } from '../utils/Pokedex';
+import './Pkmn.scss';
 
-const Pokemon: React.FC = () => {
+const Pkmn = () => {
   let params = useParams();
   const [pokemon, setPokemon] = useState<Pokemon>();
+  const [isPkmnLoading, setIsPkmnLoading] = useState(true);
 
   useEffect(() => {
     if (params.pokemon) {
-      Pokedex.getPokemonByName(params.pokemon).then((pkmn) => setPokemon(pkmn));
+      Pokedex.getPokemonByName(params.pokemon).then((pkmn) => {
+        setPokemon(pkmn);
+        setIsPkmnLoading(false);
+      });
     }
   }, []);
 
   return pokemon ? (
-    <section>
+    <section className="pokemon">
       <Card
+        loading={isPkmnLoading}
         hoverable
-        style={{ width: 240 }}
+        style={{ width: 240, height: 350 }}
         cover={
           <img
             alt={pokemon.name}
@@ -47,4 +53,4 @@ const Pokemon: React.FC = () => {
   ) : null;
 };
 
-export default Pokemon;
+export default Pkmn;
